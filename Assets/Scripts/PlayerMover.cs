@@ -16,9 +16,19 @@ public class PlayerMover : MonoBehaviour
     private float speed;
     [SerializeField]
     private bool rotationClamped;
+    [SerializeField]
+    private float collisionBounceDuration;
+    [SerializeField]
+    private float collisionBounceSpeed;
+
+
 
     private new Rigidbody2D rigidbody2D;
     private Vector2 input;
+    private bool isBouncing;
+
+    private float collisionBounceTimer;
+    private Vector2 collisionBounceDirection;
 
     void Awake()
     {
@@ -28,12 +38,25 @@ public class PlayerMover : MonoBehaviour
 
     void Update()
     {
-        input.x = player == Player.Player1 ? Input.GetAxis("Horizontal") : Input.GetAxis("HorizontalP2");
-        input.y = player == Player.Player1 ? Input.GetAxis("Vertical") : Input.GetAxis("VerticalP2");
+        if (!isBouncing)
+        {
+            input.x = player == Player.Player1 ? Input.GetAxis("Horizontal") : Input.GetAxis("HorizontalP2");
+            input.y = player == Player.Player1 ? Input.GetAxis("Vertical") : Input.GetAxis("VerticalP2");
 
-        rigidbody2D.MovePosition(rigidbody2D.position +
-            speed * input.x * Time.deltaTime * Vector2.right +
-            speed * input.y * Time.deltaTime * Vector2.up);
+
+            rigidbody2D.MovePosition(rigidbody2D.position +
+                speed * input.x * Time.deltaTime * Vector2.right +
+                speed * input.y * Time.deltaTime * Vector2.up);
+        }
+        else
+        {
+            rigidbody2D.MovePosition(rigidbody2D.position +
+                collisionBounceSpeed * Time.deltaTime * collisionBounceDirection);
+            
+            collisionBounceTimer += Time.deltaTime;
+            if(collisionBounceTimer >= collisionBounceDuration)
+                isBouncing = false;
+        }
 
         if (input.sqrMagnitude > 0.1f)
         {
@@ -43,6 +66,30 @@ public class PlayerMover : MonoBehaviour
 
             rigidbody2D.MoveRotation(Quaternion.AngleAxis(angle, Vector3.forward));
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+
+            float absoluteDirectionsDot = Vector2.Dot(collision.transform.right, transform.right);
+            Vector2 playerLink = collision.transform.position - transform.position;
+
+            if (absoluteDirectionsDot < -0.9f)
+            {
+                GetComponent<PlayerLife>().TakeDamage(5);
+            }
+            else if (Vector2.Dot(playerLink, transform.right) <= 0.6)
+            {
+                GetComponent<PlayerLife>().TakeDamage(collision.relativeVelocity.magnitude * 2);
+            }
+
+        }
+        isBouncing = true;
+        collisionBounceTimer = 0;
+        collisionBounceDirection = collision.relativeVelocity.normalized;
+        input.x = input.y = 0;
     }
 
     private float AngleClamper(float rawAngle)
