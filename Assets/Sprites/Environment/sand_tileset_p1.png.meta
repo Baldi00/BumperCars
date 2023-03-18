@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: ffc40363775eedf4cbccd89f63eaa8cc
+guid: 554a5438f7d86084f8e6701a70cd8f4f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -44,12 +44,12 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: way_center
+      name: sand
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
-        width: 256
-        height: 146
+        x: 1
+        y: 19
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94facb88f2301dc4cb8350a527521224
-      internalID: 1689093476
+      spriteID: 37b6976c383680845b4b44f8a04fb333
+      internalID: -1447184073
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: way_complete
+      name: tree1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 444
+        x: 11
+        y: 19
+        width: 6
+        height: 8
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 983c04625b5b9554e87ec32b5246413c
-      internalID: -1374898989
+      spriteID: 712bd60264cfed04cbfa78665666c3cd
+      internalID: 1910112084
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: way_up
+      name: tree3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 368
-        width: 256
-        height: 76
+        x: 11
+        y: 11
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9eb76849fcca1c34cb242ac0771a1ec3
-      internalID: -1505252383
+      spriteID: adac0984b48d0b14fa79e79f407b434b
+      internalID: 362836902
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: way_down
+      name: tree2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 66
+        x: 2
+        y: 11
+        width: 6
+        height: 6
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,8 +182,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 836191a1e7f719245b6b2c8f7a2f2c0a
-      internalID: 1131295544
+      spriteID: 55a96b82abda1b64f84a6a20650ab35d
+      internalID: 210205110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tree4
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef7a9632d202af1429f0d928df2e459a
+      internalID: 1093894084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: scorpion
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 3
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f7552d60a113a14a8f5246edfd262f9
+      internalID: -1117353291
       vertices: []
       indices: 
       edges: []
@@ -199,10 +241,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      way_up: -1505252383
-      way_complete: -1374898989
-      way_center: 1689093476
-      way_down: 1131295544
+      sand: -1447184073
+      tree4: 1093894084
+      tree3: 362836902
+      scorpion: -1117353291
+      tree1: 1910112084
+      tree2: 210205110
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
