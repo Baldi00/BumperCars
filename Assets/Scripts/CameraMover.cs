@@ -1,30 +1,35 @@
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(Camera))]
+[RequireComponent(typeof(PixelPerfectCamera))]
 public class CameraMover : MonoBehaviour
 {
     [SerializeField]
-    private float minOrtographicSize = 5.4f;
+    private float minPixelPerUnit = 50f;
     [SerializeField]
-    private float maxOrtographicSize = 10f;
+    private float maxPixelPerUnit = 100f;
     [SerializeField]
-    private float minPlayersDistance = 12f;
+    private float minPlayersDistanceX = 12f;
     [SerializeField]
-    private float maxPlayersDistance = 37f;
+    private float maxPlayersDistanceX = 33f;
+    [SerializeField]
+    private float minPlayersDistanceY = 0f;
+    [SerializeField]
+    private float maxPlayersDistanceY = 20f;
     [SerializeField]
     private Transform player1;
     [SerializeField]
     private Transform player2;
 
-    private new Camera camera;
+    private new PixelPerfectCamera camera;
 
     private Vector3 currentPlayersCenter;
-    private float currentPlayerDistance;
+    private Vector2 currentPlayerDistance;
 
     void Awake()
     {
-        camera = GetComponent<Camera>();
+        camera = GetComponent<PixelPerfectCamera>();
     }
 
     void Update()
@@ -33,9 +38,12 @@ public class CameraMover : MonoBehaviour
         currentPlayersCenter.z = -10;
         transform.position = currentPlayersCenter;
 
-        currentPlayerDistance = Vector3.Distance(player1.position, player2.position);
-        camera.orthographicSize = Mathf.Lerp(minOrtographicSize, maxOrtographicSize, 
-            Mathf.InverseLerp(minPlayersDistance, maxPlayersDistance, currentPlayerDistance));
+        currentPlayerDistance = player1.position - player2.position;
+        int ppuX = (int)Mathf.Lerp(maxPixelPerUnit, minPixelPerUnit, 
+            Mathf.InverseLerp(minPlayersDistanceX, maxPlayersDistanceX, Mathf.Abs(currentPlayerDistance.x)));
+        int ppuY = (int)Mathf.Lerp(maxPixelPerUnit, minPixelPerUnit, 
+            Mathf.InverseLerp(minPlayersDistanceY, maxPlayersDistanceY, Mathf.Abs(currentPlayerDistance.y)));
+        camera.assetsPPU = Mathf.Min(ppuX, ppuY);
     }
 
     [ContextMenu("Distance")]
