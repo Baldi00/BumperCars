@@ -52,9 +52,9 @@ public class PlayerMover : MonoBehaviour
         {
             rigidbody2D.MovePosition(rigidbody2D.position +
                 collisionBounceSpeed * Time.deltaTime * collisionBounceDirection);
-            
+
             collisionBounceTimer += Time.deltaTime;
-            if(collisionBounceTimer >= collisionBounceDuration)
+            if (collisionBounceTimer >= collisionBounceDuration)
                 isBouncing = false;
         }
 
@@ -70,22 +70,17 @@ public class PlayerMover : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (isBouncing)
+            return;
+
+        if (collision.collider.CompareTag("CarFrontCollider"))
         {
-
-            float absoluteDirectionsDot = Vector2.Dot(collision.transform.right, transform.right);
-            Vector2 playerLink = collision.transform.position - transform.position;
-
-            if (absoluteDirectionsDot < -0.9f)
-            {
+            if (collision.otherCollider.CompareTag("CarFrontCollider"))
                 GetComponent<PlayerLife>().TakeDamage(5);
-            }
-            else if (Vector2.Dot(playerLink, transform.right) <= 0.6)
-            {
+            else if (collision.otherCollider.CompareTag("CarBackCollider"))
                 GetComponent<PlayerLife>().TakeDamage(collision.relativeVelocity.magnitude * 2);
-            }
-
         }
+
         isBouncing = true;
         collisionBounceTimer = 0;
         collisionBounceDirection = collision.relativeVelocity.normalized;
