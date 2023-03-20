@@ -517,6 +517,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
+      propertyPath: bounceAnimationCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
+      propertyPath: bounceAnimationCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2489643008104375956, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
       propertyPath: m_Name
       value: Player1

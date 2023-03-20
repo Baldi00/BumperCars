@@ -20,7 +20,8 @@ public class PlayerMover : MonoBehaviour
     private float collisionBounceDuration;
     [SerializeField]
     private float collisionBounceSpeed;
-
+    [SerializeField]
+    private AnimationCurve bounceAnimationCurve;
 
 
     private new Rigidbody2D rigidbody2D;
@@ -43,7 +44,6 @@ public class PlayerMover : MonoBehaviour
             input.x = player == Player.Player1 ? Input.GetAxis("Horizontal") : Input.GetAxis("HorizontalP2");
             input.y = player == Player.Player1 ? Input.GetAxis("Vertical") : Input.GetAxis("VerticalP2");
 
-
             rigidbody2D.MovePosition(rigidbody2D.position +
                 speed * input.x * Time.deltaTime * Vector2.right +
                 speed * input.y * Time.deltaTime * Vector2.up);
@@ -51,7 +51,7 @@ public class PlayerMover : MonoBehaviour
         else
         {
             rigidbody2D.MovePosition(rigidbody2D.position +
-                collisionBounceSpeed * Time.deltaTime * collisionBounceDirection);
+                collisionBounceSpeed * bounceAnimationCurve.Evaluate(collisionBounceTimer / collisionBounceDuration) * Time.deltaTime * collisionBounceDirection);
 
             collisionBounceTimer += Time.deltaTime;
             if (collisionBounceTimer >= collisionBounceDuration)
