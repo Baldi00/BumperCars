@@ -18,9 +18,11 @@ public class CameraMover : MonoBehaviour
     [SerializeField]
     private float maxPlayersDistanceY = 20f;
     [SerializeField]
-    private Transform player1;
+    private PlayerMover player1;
     [SerializeField]
-    private Transform player2;
+    private PlayerMover player2;
+    [SerializeField]
+    private float bounceSpeed;
 
     private new PixelPerfectCamera camera;
 
@@ -34,21 +36,32 @@ public class CameraMover : MonoBehaviour
 
     void Update()
     {
-        currentPlayersCenter = Vector3.Lerp(player1.position, player2.position, 0.5f);
+        currentPlayersCenter = Vector3.Lerp(player1.transform.position, player2.transform.position, 0.5f);
         currentPlayersCenter.z = -10;
         transform.position = currentPlayersCenter;
 
-        currentPlayerDistance = player1.position - player2.position;
-        int ppuX = (int)Mathf.Lerp(maxPixelPerUnit, minPixelPerUnit, 
+        currentPlayerDistance = player1.transform.position - player2.transform.position;
+        int ppuX = (int)Mathf.Lerp(maxPixelPerUnit, minPixelPerUnit,
             Mathf.InverseLerp(minPlayersDistanceX, maxPlayersDistanceX, Mathf.Abs(currentPlayerDistance.x)));
-        int ppuY = (int)Mathf.Lerp(maxPixelPerUnit, minPixelPerUnit, 
+        int ppuY = (int)Mathf.Lerp(maxPixelPerUnit, minPixelPerUnit,
             Mathf.InverseLerp(minPlayersDistanceY, maxPlayersDistanceY, Mathf.Abs(currentPlayerDistance.y)));
         camera.assetsPPU = Mathf.Min(ppuX, ppuY);
+
+        if (Mathf.Abs(currentPlayerDistance.x) > maxPlayersDistanceX)
+        {
+            player1.StartBounce(player1.transform.position.x > player2.transform.position.x ? Vector2.left : Vector2.right, bounceSpeed);
+            player2.StartBounce(player1.transform.position.x > player2.transform.position.x ? Vector2.right : Vector2.left, bounceSpeed);
+        }
+        else if (Mathf.Abs(currentPlayerDistance.y) > maxPlayersDistanceY)
+        {
+            player1.StartBounce(player1.transform.position.y > player2.transform.position.y ? Vector2.down : Vector2.up, bounceSpeed);
+            player2.StartBounce(player1.transform.position.y > player2.transform.position.y ? Vector2.up : Vector2.down, bounceSpeed);
+        }
     }
 
     [ContextMenu("Distance")]
     void CalculateDistanceDebug()
     {
-        Debug.Log(Vector3.Distance(player1.position, player2.position));
+        Debug.Log(Vector3.Distance(player1.transform.position, player2.transform.position));
     }
 }

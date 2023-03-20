@@ -19,10 +19,11 @@ public class PlayerMover : MonoBehaviour
     [SerializeField]
     private float collisionBounceDuration;
     [SerializeField]
-    private float collisionBounceSpeed;
+    private float littleCollisionBounceSpeed;
+    [SerializeField]
+    private float strongCollisionBounceSpeed;
     [SerializeField]
     private AnimationCurve bounceAnimationCurve;
-
 
     private new Rigidbody2D rigidbody2D;
     private Vector2 input;
@@ -30,6 +31,7 @@ public class PlayerMover : MonoBehaviour
 
     private float collisionBounceTimer;
     private Vector2 collisionBounceDirection;
+    private float currentBounceSpeed;
 
     void Awake()
     {
@@ -51,7 +53,9 @@ public class PlayerMover : MonoBehaviour
         else
         {
             rigidbody2D.MovePosition(rigidbody2D.position +
-                collisionBounceSpeed * bounceAnimationCurve.Evaluate(collisionBounceTimer / collisionBounceDuration) * Time.deltaTime * collisionBounceDirection);
+                currentBounceSpeed *
+                bounceAnimationCurve.Evaluate(collisionBounceTimer / collisionBounceDuration) *
+                Time.deltaTime * collisionBounceDirection);
 
             collisionBounceTimer += Time.deltaTime;
             if (collisionBounceTimer >= collisionBounceDuration)
@@ -73,17 +77,30 @@ public class PlayerMover : MonoBehaviour
         if (isBouncing)
             return;
 
+        float currentBounceSpeed = littleCollisionBounceSpeed;
         if (collision.collider.CompareTag("CarFrontCollider"))
         {
             if (collision.otherCollider.CompareTag("CarFrontCollider"))
+            {
                 GetComponent<PlayerLife>().TakeDamage(5);
+                currentBounceSpeed = littleCollisionBounceSpeed;
+            }
             else if (collision.otherCollider.CompareTag("CarBackCollider"))
+            {
                 GetComponent<PlayerLife>().TakeDamage(collision.relativeVelocity.magnitude * 2);
+                currentBounceSpeed = strongCollisionBounceSpeed;
+            }
         }
 
+        StartBounce(collision.relativeVelocity.normalized, currentBounceSpeed);
+    }
+
+    public void StartBounce(Vector2 bounceDirection, float bounceSpeed)
+    {
         isBouncing = true;
         collisionBounceTimer = 0;
-        collisionBounceDirection = collision.relativeVelocity.normalized;
+        collisionBounceDirection = bounceDirection;
+        currentBounceSpeed = bounceSpeed;
         input.x = input.y = 0;
     }
 

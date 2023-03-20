@@ -123,21 +123,22 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &152288528 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2594698842980701881, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
-  m_PrefabInstance: {fileID: 1770592368}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &237524948 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3632110235708132765, guid: 45f4c194c337eae43ab4819fa99f084e, type: 3}
   m_PrefabInstance: {fileID: 3162376226075931065}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &279840645 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2594698842980701881, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
+--- !u!114 &349379057 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
   m_PrefabInstance: {fileID: 8884462960772279360}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af0cb91438cdd141952b11b127992c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,8 +277,9 @@ MonoBehaviour:
   maxPlayersDistanceX: 33
   minPlayersDistanceY: 0
   maxPlayersDistanceY: 20
-  player1: {fileID: 279840645}
-  player2: {fileID: 152288528}
+  player1: {fileID: 349379057}
+  player2: {fileID: 1283575278}
+  bounceSpeed: 10
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,6 +303,17 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &1283575278 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
+  m_PrefabInstance: {fileID: 1770592368}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0af0cb91438cdd141952b11b127992c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1770592368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -517,14 +530,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
-      propertyPath: bounceAnimationCurve.m_Curve.Array.data[1].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
-      propertyPath: bounceAnimationCurve.m_Curve.Array.data[1].outSlope
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2489643008104375956, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
       propertyPath: m_Name
       value: Player1

@@ -657,7 +657,8 @@ MonoBehaviour:
   speed: 30
   rotationClamped: 0
   collisionBounceDuration: 0.5
-  collisionBounceSpeed: 20
+  littleCollisionBounceSpeed: 15
+  strongCollisionBounceSpeed: 25
   bounceAnimationCurve:
     serializedVersion: 2
     m_Curve:
