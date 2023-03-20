@@ -17,6 +17,10 @@ public class PlayerMover : MonoBehaviour
     [SerializeField]
     private bool rotationClamped;
     [SerializeField]
+    private float smallDamage;
+    [SerializeField]
+    private float bigDamage;
+    [SerializeField]
     private float collisionBounceDuration;
     [SerializeField]
     private float littleCollisionBounceSpeed;
@@ -27,6 +31,7 @@ public class PlayerMover : MonoBehaviour
 
     private new Rigidbody2D rigidbody2D;
     private Vector2 input;
+    private bool canMove;
     private bool isBouncing;
 
     private float collisionBounceTimer;
@@ -37,21 +42,14 @@ public class PlayerMover : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         input = new Vector2();
+        canMove = true;
     }
 
     void Update()
     {
-        if (!isBouncing)
+        if (isBouncing)
         {
-            input.x = player == Player.Player1 ? Input.GetAxis("Horizontal") : Input.GetAxis("HorizontalP2");
-            input.y = player == Player.Player1 ? Input.GetAxis("Vertical") : Input.GetAxis("VerticalP2");
 
-            rigidbody2D.MovePosition(rigidbody2D.position +
-                speed * input.x * Time.deltaTime * Vector2.right +
-                speed * input.y * Time.deltaTime * Vector2.up);
-        }
-        else
-        {
             rigidbody2D.MovePosition(rigidbody2D.position +
                 currentBounceSpeed *
                 bounceAnimationCurve.Evaluate(collisionBounceTimer / collisionBounceDuration) *
@@ -61,15 +59,25 @@ public class PlayerMover : MonoBehaviour
             if (collisionBounceTimer >= collisionBounceDuration)
                 isBouncing = false;
         }
-
-        if (input.sqrMagnitude > 0.1f)
+        else if (canMove)
         {
-            float angle = rotationClamped ?
-                AngleClamper(Vector3.SignedAngle(Vector2.right, input, Vector3.forward)) :
-                Vector3.SignedAngle(Vector2.right, input, Vector3.forward);
+            input.x = player == Player.Player1 ? Input.GetAxis("Horizontal") : Input.GetAxis("HorizontalP2");
+            input.y = player == Player.Player1 ? Input.GetAxis("Vertical") : Input.GetAxis("VerticalP2");
 
-            rigidbody2D.MoveRotation(Quaternion.AngleAxis(angle, Vector3.forward));
+            rigidbody2D.MovePosition(rigidbody2D.position +
+                speed * input.x * Time.deltaTime * Vector2.right +
+                speed * input.y * Time.deltaTime * Vector2.up);
+
+            if (input.sqrMagnitude > 0.1f)
+            {
+                float angle = rotationClamped ?
+                    AngleClamper(Vector3.SignedAngle(Vector2.right, input, Vector3.forward)) :
+                    Vector3.SignedAngle(Vector2.right, input, Vector3.forward);
+
+                rigidbody2D.MoveRotation(Quaternion.AngleAxis(angle, Vector3.forward));
+            }
         }
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -82,12 +90,12 @@ public class PlayerMover : MonoBehaviour
         {
             if (collision.otherCollider.CompareTag("CarFrontCollider"))
             {
-                GetComponent<PlayerLife>().TakeDamage(5);
+                GetComponent<PlayerLife>().TakeDamage(smallDamage);
                 currentBounceSpeed = littleCollisionBounceSpeed;
             }
             else if (collision.otherCollider.CompareTag("CarBackCollider"))
             {
-                GetComponent<PlayerLife>().TakeDamage(collision.relativeVelocity.magnitude * 2);
+                GetComponent<PlayerLife>().TakeDamage(bigDamage);
                 currentBounceSpeed = strongCollisionBounceSpeed;
             }
         }
@@ -102,6 +110,11 @@ public class PlayerMover : MonoBehaviour
         collisionBounceDirection = bounceDirection;
         currentBounceSpeed = bounceSpeed;
         input.x = input.y = 0;
+    }
+
+    public void StopMoving()
+    {
+        canMove = false;
     }
 
     private float AngleClamper(float rawAngle)

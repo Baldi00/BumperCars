@@ -18,23 +18,40 @@ public class CameraMover : MonoBehaviour
     [SerializeField]
     private float maxPlayersDistanceY = 20f;
     [SerializeField]
-    private PlayerMover player1;
-    [SerializeField]
-    private PlayerMover player2;
-    [SerializeField]
     private float bounceSpeed;
 
     private new PixelPerfectCamera camera;
 
+    private PlayerMover player1;
+    private PlayerMover player2;
     private Vector3 currentPlayersCenter;
     private Vector2 currentPlayerDistance;
+    private bool updatePositionAndZoom;
 
     void Awake()
     {
         camera = GetComponent<PixelPerfectCamera>();
     }
 
+    void Start()
+    {
+        player1 = GameManager.Instance.player1;
+        player2 = GameManager.Instance.player2;
+        updatePositionAndZoom = true;
+    }
+
     void Update()
+    {
+        if (updatePositionAndZoom)
+            UpdatePositionAndZoom();
+    }
+
+    public void StopUpdatePositionAndZoom()
+    {
+        updatePositionAndZoom = false;
+    }
+
+    private void UpdatePositionAndZoom()
     {
         currentPlayersCenter = Vector3.Lerp(player1.transform.position, player2.transform.position, 0.5f);
         currentPlayersCenter.z = -10;

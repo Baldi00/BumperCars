@@ -656,6 +656,8 @@ MonoBehaviour:
   player: 0
   speed: 30
   rotationClamped: 0
+  smallDamage: 5
+  bigDamage: 16
   collisionBounceDuration: 0.5
   littleCollisionBounceSpeed: 15
   strongCollisionBounceSpeed: 25
@@ -697,6 +699,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLife: 100
   minLife: 0
+  OnLifeChange:
+    m_PersistentCalls:
+      m_Calls: []
+  explosionPrefab: {fileID: 1726650152866984144, guid: c90c85bcdee8a2646a5ef59a2d118f14, type: 3}
 --- !u!1 &2729674761736612563
 GameObject:
   m_ObjectHideFlags: 0

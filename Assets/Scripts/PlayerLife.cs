@@ -9,6 +9,8 @@ public class PlayerLife : MonoBehaviour
     private float minLife = 0;
     [SerializeField]
     private UnityEvent<float> OnLifeChange;
+    [SerializeField]
+    private GameObject explosionPrefab;
 
     private float currentLife;
 
@@ -21,5 +23,13 @@ public class PlayerLife : MonoBehaviour
     {
         currentLife = Mathf.Max(minLife, currentLife - damage);
         OnLifeChange.Invoke(Mathf.InverseLerp(minLife, maxLife, currentLife));
+        if (currentLife <= 0)
+        {
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            GameManager.Instance.camera.StopUpdatePositionAndZoom();
+            GameManager.Instance.player1.StopMoving();
+            GameManager.Instance.player2.StopMoving();
+            Destroy(gameObject);
+        }
     }
 }
