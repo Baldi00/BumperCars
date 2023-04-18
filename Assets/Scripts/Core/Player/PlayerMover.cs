@@ -56,7 +56,7 @@ public class PlayerMover : MonoBehaviour
         }
         else if (!GameManager.Instance.IsPaused)
         {
-            if (GameManager.Instance.inputType == GameManager.InputType.Keyboard)
+            if (Gamepad.current == null || (Gamepad.current.leftStick.ReadValue().Equals(Vector2.zero) && Gamepad.current.rightStick.ReadValue().Equals(Vector2.zero)))
             {
                 input.x = player == PlayerNumber.Player1 ? Input.GetAxis("Horizontal") : Input.GetAxis("HorizontalP2");
                 input.y = player == PlayerNumber.Player1 ? Input.GetAxis("Vertical") : Input.GetAxis("VerticalP2");

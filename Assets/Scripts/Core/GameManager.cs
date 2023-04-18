@@ -4,13 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-	public enum InputType
-	{
-		Keyboard,
-		Gamepad,
-		Touchscreen
-	}
-
     private static GameManager _instance;
 	public static GameManager Instance { get => _instance; }
 
@@ -20,8 +13,6 @@ public class GameManager : MonoBehaviour
 	public GameObject onScreenControlsUI;
 	public EndGameManager endGameManager;
 
-	[HideInInspector]
-	public InputType inputType;
     [HideInInspector]
     public bool IsPaused;
 
@@ -36,14 +27,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		if (Touchscreen.current != null)
-		{
-			inputType = InputType.Touchscreen;
 			onScreenControlsUI.SetActive(true);
-		}
-		else if (Keyboard.current != null)
-			inputType = InputType.Keyboard;
-		else
-			inputType = InputType.Gamepad;
 
 		Application.targetFrameRate = 60;
 	}
