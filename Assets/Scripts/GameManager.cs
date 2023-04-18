@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
 			inputType = InputType.Keyboard;
 		else
 			inputType = InputType.Gamepad;
+
+		Application.targetFrameRate = 60;
 	}
 
 	public void LoadGameScene()

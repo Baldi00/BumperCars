@@ -42,7 +42,6 @@ public class PlayerMover : MonoBehaviour
     {
         if (isBouncing)
         {
-
             rigidbody2D.MovePosition(rigidbody2D.position +
                 currentBounceSpeed *
                 bounceAnimationCurve.Evaluate(collisionBounceTimer / collisionBounceDuration) *
@@ -75,7 +74,6 @@ public class PlayerMover : MonoBehaviour
                 rigidbody2D.MoveRotation(Quaternion.AngleAxis(angle, Vector3.forward));
             }
         }
-
     }
 
     void OnCollisionEnter2D(Collision2D collision)

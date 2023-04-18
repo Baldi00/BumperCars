@@ -1175,7 +1175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c13f2654b347b43a77d8c66ddb1a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTime: 10
+  startTime: 99
   onTimerChanges:
     m_PersistentCalls:
       m_Calls:
@@ -1486,14 +1486,6 @@ PrefabInstance:
     - target: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
       propertyPath: player
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
-      propertyPath: bigDamage
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
-      propertyPath: smallDamage
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2489643008104375956, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
       propertyPath: m_Name
@@ -2308,7 +2300,7 @@ MonoBehaviour:
   environmentTilemapPrefab: {fileID: 6298496094045246397, guid: 45f4c194c337eae43ab4819fa99f084e, type: 3}
   tilemapSizeX: 60
   tilemapSizeY: 40
-  offsetSpawnerX: 10
+  offsetSpawnerX: 8
   offsetSpawnerY: 7.5
 --- !u!1001 &3162376226075931065
 PrefabInstance:
@@ -2374,6 +2366,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
+      propertyPath: style.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+    - target: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
+      propertyPath: style.m_Name
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 279840646, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
+      propertyPath: style.m_FontSize
+      value: 189
+      objectReference: {fileID: 0}
     - target: {fileID: 2489643008104375956, guid: 338f65c99e3854c4d8fc81e40549dc35, type: 3}
       propertyPath: m_Name
       value: Player1
