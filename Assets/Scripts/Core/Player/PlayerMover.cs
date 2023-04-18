@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [DisallowMultipleComponent]
@@ -23,6 +24,8 @@ public class PlayerMover : MonoBehaviour
     private float strongCollisionBounceSpeed;
     [SerializeField]
     private AnimationCurve bounceAnimationCurve;
+    [SerializeField]
+    private UnityEvent onCarsCrash;
 
     private new Rigidbody2D rigidbody2D;
     private Vector2 input;
@@ -80,6 +83,8 @@ public class PlayerMover : MonoBehaviour
     {
         if (isBouncing)
             return;
+
+        onCarsCrash?.Invoke();
 
         float currentBounceSpeed = littleCollisionBounceSpeed;
         if (collision.collider.CompareTag("CarFrontCollider"))

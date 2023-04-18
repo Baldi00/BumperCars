@@ -10,6 +10,8 @@ public class PlayerLife : MonoBehaviour
     [SerializeField]
     private UnityEvent<float> OnLifeChange;
     [SerializeField]
+    private UnityEvent onPlayerDies;
+    [SerializeField]
     private GameObject explosionPrefab;
     [SerializeField]
     private PlayerNumber player;
@@ -31,6 +33,7 @@ public class PlayerLife : MonoBehaviour
             GameManager.Instance.camera.StopUpdatePositionAndZoom();
             GameManager.Instance.endGameManager.ShowEndGameUIWithWinner(player == PlayerNumber.Player1 ? PlayerNumber.Player2 : PlayerNumber.Player1);
             GameManager.Instance.IsPaused = true;
+            onPlayerDies?.Invoke();
             Destroy(gameObject);
         }
     }

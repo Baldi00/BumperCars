@@ -19,9 +19,11 @@ public class GameManager : MonoBehaviour
     public new CameraMover camera;
 	public GameObject onScreenControlsUI;
 	public EndGameManager endGameManager;
-	public InputType inputType;
 
-	public bool IsPaused;
+	[HideInInspector]
+	public InputType inputType;
+    [HideInInspector]
+    public bool IsPaused;
 
 	void Awake()
 	{
