@@ -5,14 +5,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMover : MonoBehaviour
 {
-    private enum Player
-    {
-        Player1,
-        Player2
-    }
-
     [SerializeField]
-    private Player player;
+    private PlayerNumber player;
     [SerializeField]
     private float speed;
     [SerializeField]
@@ -32,7 +26,6 @@ public class PlayerMover : MonoBehaviour
 
     private new Rigidbody2D rigidbody2D;
     private Vector2 input;
-    private bool canMove;
     private bool isBouncing;
 
     private float collisionBounceTimer;
@@ -43,7 +36,6 @@ public class PlayerMover : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         input = new Vector2();
-        canMove = true;
     }
 
     void Update()
@@ -60,15 +52,15 @@ public class PlayerMover : MonoBehaviour
             if (collisionBounceTimer >= collisionBounceDuration)
                 isBouncing = false;
         }
-        else if (canMove)
+        else if (!GameManager.Instance.IsPaused)
         {
             if (GameManager.Instance.inputType == GameManager.InputType.Keyboard)
             {
-                input.x = player == Player.Player1 ? Input.GetAxis("Horizontal") : Input.GetAxis("HorizontalP2");
-                input.y = player == Player.Player1 ? Input.GetAxis("Vertical") : Input.GetAxis("VerticalP2");
+                input.x = player == PlayerNumber.Player1 ? Input.GetAxis("Horizontal") : Input.GetAxis("HorizontalP2");
+                input.y = player == PlayerNumber.Player1 ? Input.GetAxis("Vertical") : Input.GetAxis("VerticalP2");
             }
             else
-                input = player == Player.Player1 ? Gamepad.current.leftStick.ReadValue() : Gamepad.current.rightStick.ReadValue();
+                input = player == PlayerNumber.Player1 ? Gamepad.current.leftStick.ReadValue() : Gamepad.current.rightStick.ReadValue();
 
             rigidbody2D.MovePosition(rigidbody2D.position +
                 speed * input.x * Time.deltaTime * Vector2.right +
@@ -116,11 +108,6 @@ public class PlayerMover : MonoBehaviour
         collisionBounceDirection = bounceDirection;
         currentBounceSpeed = bounceSpeed;
         input.x = input.y = 0;
-    }
-
-    public void StopMoving()
-    {
-        canMove = false;
     }
 
     private float AngleClamper(float rawAngle)

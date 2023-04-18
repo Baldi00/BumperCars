@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +18,10 @@ public class GameManager : MonoBehaviour
     public PlayerMover player2;
     public new CameraMover camera;
 	public GameObject onScreenControlsUI;
+	public EndGameManager endGameManager;
 	public InputType inputType;
+
+	public bool IsPaused;
 
 	void Awake()
 	{
@@ -38,5 +42,10 @@ public class GameManager : MonoBehaviour
 			inputType = InputType.Keyboard;
 		else
 			inputType = InputType.Gamepad;
+	}
+
+	public void LoadGameScene()
+	{
+		SceneManager.LoadScene("GameScene");
 	}
 }
