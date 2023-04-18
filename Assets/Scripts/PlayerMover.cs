@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -61,8 +62,13 @@ public class PlayerMover : MonoBehaviour
         }
         else if (canMove)
         {
-            input.x = player == Player.Player1 ? Input.GetAxis("Horizontal") : Input.GetAxis("HorizontalP2");
-            input.y = player == Player.Player1 ? Input.GetAxis("Vertical") : Input.GetAxis("VerticalP2");
+            if (GameManager.Instance.inputType == GameManager.InputType.Keyboard)
+            {
+                input.x = player == Player.Player1 ? Input.GetAxis("Horizontal") : Input.GetAxis("HorizontalP2");
+                input.y = player == Player.Player1 ? Input.GetAxis("Vertical") : Input.GetAxis("VerticalP2");
+            }
+            else
+                input = player == Player.Player1 ? Gamepad.current.leftStick.ReadValue() : Gamepad.current.rightStick.ReadValue();
 
             rigidbody2D.MovePosition(rigidbody2D.position +
                 speed * input.x * Time.deltaTime * Vector2.right +
